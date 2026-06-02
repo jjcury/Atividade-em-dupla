@@ -9,13 +9,18 @@ class ExpedicaoTemplo:
     def listar_desafios(self):
         print("Desafios disponíveis:")
 
-        for x in range(len(self.desafios)):
-            partes = self.desafios[x].split("/")
-            nome = partes[0]
-            custo = partes[1]
-            recompensa = partes[2]
+        for i in range(len(self.desafios)):
+            desafio = self.desafios[i]
 
-            print(x, "-", nome, "- Custo:", custo, "- Recompensa:", recompensa)
+            print(
+                i,
+                "-",
+                desafio["nome"],
+                "- Custo:",
+                desafio["custo"],
+                "- Recompensa:",
+                desafio["recompensa"]
+            )
 
     def tentar_desafio(self, numero_desafio):
         if numero_desafio < 0 or numero_desafio >= len(self.desafios):
@@ -28,17 +33,12 @@ class ExpedicaoTemplo:
             print("Esse desafio já foi concluído.")
             return
 
-        partes = desafio.split("/")
-        nome = partes[0]
-        custo = int(partes[1])
-        recompensa = int(partes[2])
-
-        if self.energia >= custo:
-            self.energia -= custo
-            self.pontos += recompensa
+        if self.energia >= desafio["custo"]:
+            self.energia -= desafio["custo"]
+            self.pontos += desafio["recompensa"]
             self.desafios_concluidos.append(desafio)
 
-            print("Desafio concluído:", nome)
+            print("Desafio concluído:", desafio["nome"])
         else:
             print("Energia insuficiente.")
 
@@ -60,12 +60,10 @@ class ExpedicaoTemplo:
         print("Desafios concluídos:", self.calcular_progresso())
         print("Situação:", self.verificar_situacao())
 
-
-# Teste
 desafios = [
-    "ponte quebrada/20/30",
-    "sala escura/15/20",
-    "guardiao antigo/40/80"
+    {"nome": "Ponte Quebrada", "custo": 20, "recompensa": 30},
+    {"nome": "Sala Escura", "custo": 15, "recompensa": 20},
+    {"nome": "Guardião Antigo", "custo": 40, "recompensa": 80}
 ]
 
 expedicao = ExpedicaoTemplo("Templo Perdido", desafios, 100)
