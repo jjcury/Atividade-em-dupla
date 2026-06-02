@@ -1,2 +1,2 @@
 print("oi")
-priny("SONo")
+print("SONo")
