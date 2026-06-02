@@ -5,7 +5,11 @@ class CofreDoDragao:
 
     def adicionar_item(self, nome, valor):
         if nome != "" and valor > 0:
-            self.tesouros.append(nome + ":" + str(valor))
+            tesouro = {
+                "nome": nome,
+                "valor": valor
+            }
+            self.tesouros.append(tesouro)
             print("Tesouro adicionado.")
         else:
             print("Dados inválidos.")
@@ -13,32 +17,24 @@ class CofreDoDragao:
     def listar_itens(self):
         print("Tesouros do cofre:")
         for tesouro in self.tesouros:
-            print(tesouro)
+            print("Nome:", tesouro["nome"], "- Valor:", tesouro["valor"])
 
     def calcular_total(self):
         total = 0
 
         for tesouro in self.tesouros:
-            partes = tesouro.split(":")
-            valor = int(partes[1])
-            total += valor
+            total += tesouro["valor"]
 
         return total
 
     def encontrar_item_mais_valioso(self):
-        maior_nome = ""
-        maior_valor = 0
+        maior = self.tesouros[0]
 
         for tesouro in self.tesouros:
-            partes = tesouro.split(":")
-            nome = partes[0]
-            valor = int(partes[1])
+            if tesouro["valor"] > maior["valor"]:
+                maior = tesouro
 
-            if valor > maior_valor:
-                maior_valor = valor
-                maior_nome = nome
-
-        return maior_nome + ":" + str(maior_valor)
+        return maior
 
     def classificar_colecao(self):
         total = self.calcular_total()
@@ -51,18 +47,18 @@ class CofreDoDragao:
             return "Coleção lendária"
 
     def exibir_relatorio(self):
+        item = self.encontrar_item_mais_valioso()
+
         print("Nome do dragão:", self.nome_dragao)
         print("Total acumulado:", self.calcular_total())
-        print("Item mais valioso:", self.encontrar_item_mais_valioso())
+        print("Item mais valioso:", item["nome"], "-", item["valor"])
         print("Classificação:", self.classificar_colecao())
 
+cofre = CofreDoDragao("Smaug", [])
 
-# Teste
-cofre = CofreDoDragao("Lelo", [])
-
-cofre.adicionar_item("coroa", 500)
-cofre.adicionar_item("anel", 120)
-cofre.adicionar_item("espada", 300)
+cofre.adicionar_item("Coroa", 500)
+cofre.adicionar_item("Anel", 120)
+cofre.adicionar_item("Espada", 300)
 
 cofre.listar_itens()
 cofre.exibir_relatorio()
