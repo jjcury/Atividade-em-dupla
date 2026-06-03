@@ -32,6 +32,6 @@ class MochilaDeMissao:
         print(f"esse e o resumo:agente: {self.agente}, esses sao os equipamentos: {self.equipamentos} e a capacidade maxima:{self.capacidade_maxima}")
 m1 = MochilaDeMissao("anthony",[],10)
 print(m1.adicionar_equipamento(2))
-print(m1.listar_equipamentos("faca"))
+print(m1.listar_equipamentos())
 print(m1.contar_equipamentos(len([])))
 print(m1.verificar_espaco())
